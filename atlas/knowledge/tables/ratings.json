@@ -1,0 +1,20 @@
+{
+  "table_name": "ratings",
+  "description": "User ratings and vote counts for titles",
+  "use_cases": [
+    "Find highest-rated movies",
+    "Analyze rating distributions",
+    "Filter by minimum vote threshold for credibility"
+  ],
+  "columns": {
+    "tconst": "Title identifier (foreign key to titles.tconst)",
+    "averageRating": "Weighted average rating (0-10, decimal)",
+    "numVotes": "Number of votes (integer)"
+  },
+  "data_quality_notes": [
+    "averageRating is float between 0.0 and 10.0",
+    "numVotes varies widely: some titles have <100, blockbusters have 1M+",
+    "Use numVotes > 10000 filter for reliable ratings",
+    "Not all titles have ratings (inner join required)"
+  ]
+}

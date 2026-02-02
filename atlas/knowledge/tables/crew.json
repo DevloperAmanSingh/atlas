@@ -1,0 +1,20 @@
+{
+  "table_name": "crew",
+  "description": "Directors and writers for each title",
+  "use_cases": [
+    "Find all movies directed by a person",
+    "Identify writer-director collaborations",
+    "Analyze prolific directors"
+  ],
+  "columns": {
+    "tconst": "Title identifier (foreign key to titles)",
+    "directors": "Comma-separated nconst values of directors",
+    "writers": "Comma-separated nconst values of writers"
+  },
+  "data_quality_notes": [
+    "directors and writers are comma-separated nconst values",
+    "Use LIKE '%nm1234567%' to search for specific person",
+    "Some titles have NULL for directors or writers",
+    "To get names, join with people table"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "table_name": "titles",
+  "description": "Movie and TV show information including title, year, runtime, and genres",
+  "use_cases": [
+    "Find movies by year, genre, or runtime",
+    "Analyze trends in movie production over time",
+    "Compare movie vs TV series statistics"
+  ],
+  "columns": {
+    "tconst": "Unique title identifier (primary key, e.g. 'tt0111161')",
+    "titleType": "Type: 'movie', 'tvSeries', or 'tvMiniSeries'",
+    "primaryTitle": "Main title used for the film/show",
+    "originalTitle": "Original title in original language",
+    "isAdult": "0 = non-adult, 1 = adult content",
+    "startYear": "Release year (4-digit integer)",
+    "endYear": "TV series end year (NULL for movies)",
+    "runtimeMinutes": "Runtime in minutes (NULL if unknown)",
+    "genres": "Comma-separated genres (e.g. 'Drama,Crime')"
+  },
+  "data_quality_notes": [
+    "startYear can be NULL for unreleased titles",
+    "runtimeMinutes is NULL for ~30% of entries",
+    "genres field is a comma-separated string, use LIKE for filtering",
+    "titleType is limited to: 'movie', 'tvSeries', 'tvMiniSeries'",
+    "isAdult is integer 0 or 1, not boolean"
+  ]
+}

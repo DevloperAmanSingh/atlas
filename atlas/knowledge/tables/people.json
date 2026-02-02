@@ -1,0 +1,23 @@
+{
+  "table_name": "people",
+  "description": "Actors, directors, writers, and crew members",
+  "use_cases": [
+    "Find actors and their filmographies",
+    "Analyze director careers and success",
+    "Search by person name"
+  ],
+  "columns": {
+    "nconst": "Unique person identifier (primary key, e.g. 'nm0000123')",
+    "primaryName": "Person's name",
+    "birthYear": "Birth year (4-digit integer, can be NULL)",
+    "deathYear": "Death year if deceased (NULL if alive)",
+    "primaryProfession": "Comma-separated professions (e.g. 'actor,producer')",
+    "knownForTitles": "Comma-separated tconst values of notable works"
+  },
+  "data_quality_notes": [
+    "birthYear and deathYear can be NULL",
+    "primaryProfession is comma-separated string",
+    "knownForTitles is comma-separated, use LIKE '%tt1234567%' to check",
+    "primaryName may have duplicates (different people, same name)"
+  ]
+}

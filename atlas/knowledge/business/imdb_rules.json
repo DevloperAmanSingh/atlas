@@ -1,0 +1,77 @@
+{
+  "metrics": [
+    {
+      "name": "Credible Rating",
+      "definition": "Average rating with at least 10,000 votes",
+      "formula": "averageRating WHERE numVotes > 10000",
+      "tables": ["ratings"]
+    },
+    {
+      "name": "Blockbuster",
+      "definition": "Movie with over 500,000 votes",
+      "formula": "numVotes > 500000",
+      "tables": ["ratings"]
+    },
+    {
+      "name": "Classic Film",
+      "definition": "Movie released before 1980 with rating > 7.5",
+      "formula": "startYear < 1980 AND averageRating > 7.5",
+      "tables": ["titles", "ratings"]
+    },
+    {
+      "name": "Prolific Director",
+      "definition": "Director with 10+ credited films",
+      "formula": "COUNT(DISTINCT tconst) >= 10",
+      "tables": ["crew"]
+    }
+  ],
+  "business_rules": [
+    {
+      "rule": "Vote threshold for reliability",
+      "description": "Movies with fewer than 100 votes may have unreliable ratings",
+      "recommendation": "Use WHERE numVotes > 100 for rating-based queries"
+    },
+    {
+      "rule": "Adult content filtering",
+      "description": "isAdult = 1 indicates adult content",
+      "recommendation": "Add WHERE isAdult = 0 for general audiences"
+    },
+    {
+      "rule": "TV series vs movies",
+      "description": "titleType distinguishes between content types",
+      "recommendation": "Always filter by titleType unless analyzing both"
+    },
+    {
+      "rule": "Genre parsing",
+      "description": "Genres are comma-separated strings, not normalized",
+      "recommendation": "Use LIKE '%Drama%' or string_to_array() for genre queries"
+    }
+  ],
+  "common_gotchas": [
+    {
+      "issue": "Comma-separated fields",
+      "tables_affected": ["titles (genres)", "crew (directors, writers)", "people (knownForTitles)"],
+      "solution": "Use LIKE '%value%' or string_to_array(field, ',') with LATERAL unnest()"
+    },
+    {
+      "issue": "NULL values in year fields",
+      "tables_affected": ["titles (startYear)", "people (birthYear, deathYear)"],
+      "solution": "Always include IS NOT NULL checks or handle NULLs explicitly"
+    },
+    {
+      "issue": "Rating bias toward popular films",
+      "tables_affected": ["ratings"],
+      "solution": "Use numVotes threshold (e.g., >10000) to avoid obscure titles skewing results"
+    },
+    {
+      "issue": "Multiple entries per person-title",
+      "tables_affected": ["principals"],
+      "solution": "Same person may have multiple roles in one film; use DISTINCT if counting people"
+    },
+    {
+      "issue": "Character names as JSON strings",
+      "tables_affected": ["principals (characters)"],
+      "solution": "characters field looks like JSON array but stored as TEXT; parse carefully"
+    }
+  ]
+}

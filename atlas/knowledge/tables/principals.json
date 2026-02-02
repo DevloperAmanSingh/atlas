@@ -1,0 +1,23 @@
+{
+  "table_name": "principals",
+  "description": "Cast and crew credits linking people to titles",
+  "use_cases": [
+    "Find all movies an actor appeared in",
+    "List cast for a specific movie",
+    "Analyze actor-director collaborations"
+  ],
+  "columns": {
+    "tconst": "Title identifier (foreign key to titles)",
+    "ordering": "Order of billing (1 = top billing)",
+    "nconst": "Person identifier (foreign key to people)",
+    "category": "Role type: 'actor', 'actress', 'director', 'writer', etc.",
+    "job": "Specific job title (e.g. 'director of photography')",
+    "characters": "Character name(s) played (JSON array as string)"
+  },
+  "data_quality_notes": [
+    "ordering indicates billing order (lower = more prominent)",
+    "category values: 'actor', 'actress', 'director', 'writer', 'producer', etc.",
+    "characters field is JSON-like but stored as text",
+    "Multiple rows per person-title pair if they had multiple roles"
+  ]
+}
